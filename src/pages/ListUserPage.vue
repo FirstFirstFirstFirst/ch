@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <div style="width: 50%;">Token: {{ this.storeLogUser.accessToken }}</div>
+    <div style="width: 50%">Token: {{ this.storeLogUser.accessToken }}</div>
     <div v-if="dataReady">
       <!-- Data completed -->
       <q-table
@@ -192,11 +192,11 @@ export default defineComponent({
   },
   methods: {
     getAllUsers() {
-      console.log("token:"+this.storeLogUser.accessToken)
+      console.log("token:" + this.storeLogUser.accessToken);
       const headers = {
         "x-access-token": this.storeLogUser.accessToken,
       };
-      console.log("headers:" + JSON.stringify( headers))
+      console.log("headers:" + JSON.stringify(headers));
       this.$api
         .get("/auth", { headers })
         .then((res) => {
@@ -307,14 +307,15 @@ export default defineComponent({
       }
       this.getAllUsers;
     },
-    getFileName() {
-      return filepath.substr(filepath.lastIndexOf("/") + 1);
-    },
+    // getFileName() {
+    //   return filepath.substr(filepath.lastIndexOf("/") + 1);
+    // },
     submitEditData(filename) {
       let img = "";
       if (filename == null) {
         if (this.input.img == null) img = null;
-        else img = this.getFileName(this.input.img);
+        // else img = getFileName(this.input.img);
+        else img = this.input.img;
       } else img = filename;
       const data = {
         fullname: this.input.fullname,
@@ -351,7 +352,7 @@ export default defineComponent({
   },
   async mounted() {
     await this.getAllUsers();
-    console.log("token@mount:"+this.storeLogUser.accessToken)
+    console.log("token@mount:" + this.storeLogUser.accessToken);
     this.dataReady = true;
   },
   components: { DialogComponent },
